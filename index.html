@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IVA Colombia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="netoapp_favicon.svg" type="image/svg+xml">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <nav class="top-banner">
+        <div class="banner-content">
+            <div class="brand-group">
+                <div class="logo-wrapper">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="5" x2="5" y2="19"></line>
+                        <circle cx="6.5" cy="6.5" r="2.5"></circle>
+                        <circle cx="17.5" cy="17.5" r="2.5"></circle>
+                    </svg>
+                </div>
+                <span class="brand">NetoApp</span>
+            </div>
+            <div class="banner-actions" style="display: flex; align-items: center; gap: 8px;">
+                <div class="theme-picker-container">
+                    <button id="theme-menu-btn" class="icon-btn" title="Temas de Color">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M18.37 2.63L14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3z">
+                            </path>
+                            <path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"></path>
+                            <path d="M14.5 17.5L4.5 15"></path>
+                        </svg>
+                    </button>
+                    <div id="theme-dropdown" class="theme-dropdown">
+                        <div class="theme-swatch swatch-indigo active" data-theme="default" title="Indigo"></div>
+                        <div class="theme-swatch swatch-emerald" data-theme="theme-emerald" title="Esmeralda"></div>
+                        <div class="theme-swatch swatch-ruby" data-theme="theme-ruby" title="Rubí"></div>
+                        <div class="theme-swatch swatch-amber" data-theme="theme-amber" title="Ámbar"></div>
+                        <div class="theme-swatch swatch-violet" data-theme="theme-violet" title="Violeta"></div>
+                        <div class="theme-swatch swatch-pink" data-theme="theme-pink" title="Rosado"></div>
+                    </div>
+                </div>
+
+                <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                    <svg class="sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <header>
+                <div class="header-top">
+                    <h1>Calculadora de IVA Colombia</h1>
+                </div>
+                <p>Calcula la base y el IVA automáticamente (19%).</p>
+            </header>
+
+            <main>
+                <div class="mode-toggle">
+                    <span class="mode-label active" id="mode-total">Desglosar IVA (de Total)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="calc-mode">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="mode-label" id="mode-base">Sumar IVA (a Base)</span>
+                </div>
+
+                <div class="rate-selector">
+                    <button class="rate-chip active" data-rate="0.19">19%</button>
+                    <button class="rate-chip" data-rate="0.05">5%</button>
+                    <button class="rate-chip" data-rate="0">0%</button>
+                    <span class="rate-indicator">Tarifa</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="amount" id="input-label">Monto Total (COP)</label>
+                    <div class="input-wrapper">
+                        <span class="currency">$</span>
+                        <input type="text" id="amount" placeholder="0" autocomplete="off">
+                    </div>
+                </div>
+
+                <!-- Expert Mode Section -->
+                <div class="expert-mode-toggle">
+                    <label class="switch-mini">
+                        <input type="checkbox" id="expert-toggle">
+                        <span class="slider-mini round"></span>
+                    </label>
+                    <span>Modo Experto (Retenciones)</span>
+                </div>
+
+                <div id="expert-panel" class="expert-panel hidden">
+                    <div class="reteiva-toggle"
+                        style="padding-top: 0; padding-bottom: 15px; margin-bottom: 15px; border-top: none; border-bottom: 1px solid var(--border-color);">
+                        <span style="color: var(--primary-color); font-weight: 700;">Calcular factura desde el Neto
+                            (Gross-up)</span>
+                        <label class="switch-mini">
+                            <input type="checkbox" id="gross-up-toggle">
+                            <span class="slider-mini round"></span>
+                        </label>
+                    </div>
+                    <div class="retention-group">
+                        <label>Retención en la Fuente</label>
+                        <div class="retention-chips">
+                            <button class="ret-chip active" data-ret="0.10">Comisiones/Honorarios (10%)</button>
+                        </div>
+                    </div>
+
+                    <div class="retention-group" style="border-top: 1px solid var(--border-color); padding-top: 15px;">
+                        <label>ReteICA (Bogotá/General)</label>
+                        <div class="retention-chips">
+                            <button class="reteica-chip active" title="6.9 x 1000" data-rate="0.0069">0.69%</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results">
+                    <div class="result-item">
+                        <span class="label">Base Gravable:</span>
+                        <span id="base-amount" class="value">$ 0.00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">IVA (19%):</span>
+                        <span id="iva-amount" class="value">$ 0.00</span>
+                    </div>
+                    <div id="total-bruto-row" class="result-item hidden"
+                        style="background: rgba(79, 70, 229, 0.05); padding: 8px; border-radius: 8px; margin: 8px 0;">
+                        <span class="label" style="color: var(--primary-color); font-weight: 600;">Total Bruto
+                            (Factura):</span>
+                        <span id="total-bruto-amount" class="value" style="color: var(--primary-color);">$ 0.00</span>
+                    </div>
+                    <div id="retention-row" class="result-item hidden">
+                        <span class="label">Retención Fuente:</span>
+                        <span id="retention-amount" class="value" style="color: #ef4444;">$ 0.00</span>
+                    </div>
+                    <div id="reteiva-row" class="result-item hidden">
+                        <span class="label">ReteIVA:</span>
+                        <span id="reteiva-amount" class="value" style="color: #ef4444;">$ 0.00</span>
+                    </div>
+                    <div id="reteica-row" class="result-item hidden">
+                        <span class="label">ReteICA:</span>
+                        <span id="reteica-amount" class="value" style="color: #ef4444;">$ 0.00</span>
+                    </div>
+                    <hr>
+                    <div class="result-item total">
+                        <span class="label" id="total-label">Total:</span>
+                        <span id="total-amount" class="value">$ 0.00</span>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button id="copy-btn" class="primary-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Copiar Resultados</span>
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <p>Tarifa general de IVA en Colombia: 19%</p>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2026 NetoApp - Calculadora de Impuestos</p>
+            </footer>
+        </div>
+
+        <div class="history-container" id="history-container">
+            <h3>Historial Reciente</h3>
+            <div id="history-list" class="history-list">
+                <p class="empty-msg">No hay cálculos guardados.</p>
+            </div>
+            <button id="clear-history" class="clear-btn">Limpiar Historial</button>
+        </div>
+    </div>
+
+    <!-- Update Toast Notification -->
+    <div id="update-toast" class="update-toast hidden">
+        <span>¡Nueva actualización disponible!</span>
+        <button id="update-btn" class="update-btn">Actualizar App</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
