@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalLabel = document.getElementById('total-label');
     const totalBrutoRow = document.getElementById('total-bruto-row');
     const totalBrutoValue = document.getElementById('total-bruto-amount');
-    let ivaRate = 0.19;
+    let ivaRate = 0;
     let retRate = 0.10;
-    let reteicaRate = 0.0069;
+    let reteicaRate = 0;
     let autoSaveTimer;
     let lastSavedCalc = "";
     function updateLabels() {
@@ -114,8 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isGrossUp = expertToggle.checked && grossUpToggle && grossUpToggle.checked;
         if (isGrossUp) {
             let effectiveRate = 1 + ivaRate - retRate - reteicaRate;
-            base = inputValue / effectiveRate;
-            iva = base * ivaRate;
+            base = Math.ceil(inputValue / effectiveRate);
+            iva = Math.ceil(base * ivaRate);
             totalBruto = base + iva;
         } else if (!calcMode.checked) {
             // "Desglosar" Mode: Input is TOTAL BRUTO (Base + IVA)
@@ -246,8 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
             textToCopy += `Total Bruto (Factura): ${totalBrutoValue ? totalBrutoValue.textContent : ''}\n`;
             if (retRate > 0)
                 textToCopy += `Retención Fuente (${retRate * 100}%): ${retentionValue.textContent}\n`;
-            if (reteivaToggle.checked)
-                textToCopy += `ReteIVA (15% del IVA): ${reteivaValue.textContent}\n`;
             if (reteicaRate > 0)
                 textToCopy += `ReteICA (${(reteicaRate * 100).toFixed(3)}%): ${reteicaValue.textContent}\n`;
             textToCopy += `Total a Pagar (Neto): ${totalRaw}\n`;

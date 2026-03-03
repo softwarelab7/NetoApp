@@ -84,23 +84,23 @@
 
             <main>
                 <div class="mode-toggle">
-                    <span class="mode-label active" id="mode-total">Desglosar IVA (de Total)</span>
+                    <span class="mode-label" id="mode-total">Desglosar IVA (de Total)</span>
                     <label class="switch">
-                        <input type="checkbox" id="calc-mode">
+                        <input type="checkbox" id="calc-mode" checked>
                         <span class="slider round"></span>
                     </label>
-                    <span class="mode-label" id="mode-base">Sumar IVA (a Base)</span>
+                    <span class="mode-label active" id="mode-base">Sumar IVA (a Base)</span>
                 </div>
 
                 <div class="rate-selector">
-                    <button class="rate-chip active" data-rate="0.19">19%</button>
+                    <button class="rate-chip" data-rate="0.19">19%</button>
                     <button class="rate-chip" data-rate="0.05">5%</button>
-                    <button class="rate-chip" data-rate="0">0%</button>
+                    <button class="rate-chip active" data-rate="0">0%</button>
                     <span class="rate-indicator">Tarifa</span>
                 </div>
 
                 <div class="input-group">
-                    <label for="amount" id="input-label">Monto Total (COP)</label>
+                    <label for="amount" id="input-label">Monto Base (COP)</label>
                     <div class="input-wrapper">
                         <span class="currency">$</span>
                         <input type="text" id="amount" placeholder="0" autocomplete="off">
@@ -110,13 +110,13 @@
                 <!-- Expert Mode Section -->
                 <div class="expert-mode-toggle">
                     <label class="switch-mini">
-                        <input type="checkbox" id="expert-toggle">
+                        <input type="checkbox" id="expert-toggle" checked>
                         <span class="slider-mini round"></span>
                     </label>
                     <span>Modo Experto (Retenciones)</span>
                 </div>
 
-                <div id="expert-panel" class="expert-panel hidden">
+                <div id="expert-panel" class="expert-panel">
                     <div class="reteiva-toggle"
                         style="padding-top: 0; padding-bottom: 15px; margin-bottom: 15px; border-top: none; border-bottom: 1px solid var(--border-color);">
                         <span style="color: var(--primary-color); font-weight: 700;">Calcular factura desde el Neto
@@ -129,6 +129,7 @@
                     <div class="retention-group">
                         <label>Retención en la Fuente</label>
                         <div class="retention-chips">
+                            <button class="ret-chip" data-ret="0">0%</button>
                             <button class="ret-chip active" data-ret="0.10">Comisiones/Honorarios (10%)</button>
                         </div>
                     </div>
@@ -136,7 +137,8 @@
                     <div class="retention-group" style="border-top: 1px solid var(--border-color); padding-top: 15px;">
                         <label>ReteICA (Bogotá/General)</label>
                         <div class="retention-chips">
-                            <button class="reteica-chip active" title="6.9 x 1000" data-rate="0.0069">0.69%</button>
+                            <button class="reteica-chip active" data-rate="0">0%</button>
+                            <button class="reteica-chip" title="6.9 x 1000" data-rate="0.0069">0.69%</button>
                         </div>
                     </div>
                 </div>
