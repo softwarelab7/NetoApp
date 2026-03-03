@@ -4,11 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const baseValue = document.getElementById('base-amount');
     const ivaValue = document.getElementById('iva-amount');
     const totalValue = document.getElementById('total-amount');
-    const calcMode = document.getElementById('calc-mode');
     const inputLabel = document.getElementById('input-label');
-    const modeTotalLabel = document.getElementById('mode-total');
-    const modeBaseLabel = document.getElementById('mode-base');
     const rateChips = document.querySelectorAll('.rate-chip');
+    const modeChips = document.querySelectorAll('.mode-chip');
+    let currentMode = 'base'; // 'base', 'total', 'iva'
     const expertToggle = document.getElementById('expert-toggle');
     const expertPanel = document.getElementById('expert-panel');
     const grossUpToggle = document.getElementById('gross-up-toggle');
@@ -30,24 +29,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastSavedCalc = "";
     function updateLabels() {
         const isGrossUp = expertToggle.checked && grossUpToggle && grossUpToggle.checked;
+        const modeToggleElement = document.getElementById('calc-mode-group');
+
         if (isGrossUp) {
             inputLabel.textContent = "Monto Neto a Pagar Libre (COP)";
-            calcMode.disabled = true;
-            const modeToggleElement = document.querySelector('.mode-toggle');
-            if (modeToggleElement) modeToggleElement.style.opacity = '0.5';
-        } else {
-            calcMode.disabled = false;
-            const modeToggleElement = document.querySelector('.mode-toggle');
-            if (modeToggleElement) modeToggleElement.style.opacity = '1';
-            if (calcMode.checked) {
-                inputLabel.textContent = "Monto Base (COP)";
-                modeBaseLabel.classList.add('active');
-                modeTotalLabel.classList.remove('active');
+            if (modeToggleElement) {
+                modeToggleElement.style.opacity = '0.5';
+                modeToggleElement.style.pointerEvents = 'none';
             }
-            else {
+        } else {
+            if (modeToggleElement) {
+                modeToggleElement.style.opacity = '1';
+                modeToggleElement.style.pointerEvents = 'auto';
+            }
+            if (currentMode === 'base') {
+                inputLabel.textContent = "Monto Base (COP)";
+            } else if (currentMode === 'total') {
                 inputLabel.textContent = "Monto Total (COP)";
-                modeTotalLabel.classList.add('active');
-                modeBaseLabel.classList.remove('active');
+            } else if (currentMode === 'iva') {
+                inputLabel.textContent = "Valor del IVA (COP)";
             }
         }
     }
@@ -117,11 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
             base = Math.ceil(inputValue / effectiveRate);
             iva = Math.ceil(base * ivaRate);
             totalBruto = base + iva;
-        } else if (!calcMode.checked) {
-            // "Desglosar" Mode: Input is TOTAL BRUTO (Base + IVA)
+        } else if (currentMode === 'total') {
+            // Input is TOTAL BRUTO (Base + IVA)
             totalBruto = inputValue;
             base = totalBruto / (1 + ivaRate);
             iva = totalBruto - base;
+        } else if (currentMode === 'iva') {
+            // Input is IVA itself
+            if (ivaRate === 0) {
+                if (inputValue > 0 && document.activeElement === amountInput) {
+                    showToast('No se puede calcular desde IVA con tarifa del 0%', 'error');
+                }
+                base = 0; iva = 0; totalBruto = 0;
+            } else {
+                iva = inputValue;
+                base = iva / ivaRate;
+                totalBruto = base + iva;
+            }
         }
         else {
             // "Sumar" Mode: Input is BASE
@@ -176,12 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(autoSaveTimer);
         if (inputValue > 0) {
             autoSaveTimer = setTimeout(() => {
-                const currentCalc = `${inputValue}-${calcMode.checked}-${ivaRate}-${retRate}-${reteicaRate}`;
+                const currentCalc = `${inputValue}-${currentMode}-${ivaRate}-${retRate}-${reteicaRate}`;
                 if (currentCalc !== lastSavedCalc) {
                     const item = {
                         input: amountInput.value,
                         total: formatCurrency(finalTotal),
-                        mode: !calcMode.checked ? 'total' : 'base',
+                        mode: currentMode,
                         ret: retAmount > 0 || reteivaAmount > 0 || reteicaAmount > 0,
                         date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     };
@@ -191,9 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         }
     }
-    calcMode.addEventListener('change', () => {
-        updateLabels();
-        calculateIVA();
+
+    modeChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            modeChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentMode = chip.dataset.mode;
+            updateLabels();
+            calculateIVA();
+        });
     });
     const copyBtn = document.getElementById('copy-btn');
     const historyList = document.getElementById('history-list');
@@ -235,9 +253,15 @@ document.addEventListener('DOMContentLoaded', () => {
         history.forEach((item) => {
             const div = document.createElement('div');
             div.className = 'history-item';
+
+            let modeDisplay = '';
+            if (item.mode === 'base') modeDisplay = 'Desde Base';
+            else if (item.mode === 'total') modeDisplay = 'Desde Total';
+            else if (item.mode === 'iva') modeDisplay = 'Desde IVA';
+
             div.innerHTML = `
                 <div class="hist-info">
-                    <span>${item.mode === 'total' ? 'Desglose' : 'Suma'} - ${item.input}</span>
+                    <span>${modeDisplay} - ${item.input}</span>
                     <small>${item.date}</small>
                 </div>
                 <div class="hist-total">${item.total}</div>
@@ -263,9 +287,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalRaw = totalValue.textContent;
         const baseRaw = baseValue.textContent;
         const ivaRaw = ivaValue.textContent;
+
+        let modeDisplay = '';
+        if (currentMode === 'base') modeDisplay = 'Desde Monto Base';
+        else if (currentMode === 'total') modeDisplay = 'Desde Monto Total';
+        else if (currentMode === 'iva') modeDisplay = 'Desde Valor del IVA';
+
         let textToCopy = `NetoApp - Cálculo de IVA y Retenciones\n`;
         textToCopy += `-----------------------------------\n`;
-        textToCopy += `Modo: ${!calcMode.checked ? 'Desglosar (de Total)' : 'Sumar (a Base)'}\n`;
+        textToCopy += `Modo: ${modeDisplay}\n`;
         textToCopy += `Base Gravable: ${baseRaw}\n`;
         textToCopy += `IVA (${ivaRate * 100}%): ${ivaRaw}\n`;
         if (expertToggle.checked) {

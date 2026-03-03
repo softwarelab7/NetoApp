@@ -83,13 +83,16 @@
             </header>
 
             <main>
-                <div class="mode-toggle">
-                    <span class="mode-label" id="mode-total">Desglosar IVA (de Total)</span>
-                    <label class="switch">
-                        <input type="checkbox" id="calc-mode" checked>
-                        <span class="slider round"></span>
-                    </label>
-                    <span class="mode-label active" id="mode-base">Sumar IVA (a Base)</span>
+                <div class="mode-toggle" id="calc-mode-group"
+                    style="display: flex; flex-direction: column; align-items: stretch; gap: 8px;">
+                    <span
+                        style="font-size: 13px; font-weight: 600; color: var(--text-main); align-self: flex-start;">Calcular
+                        desde:</span>
+                    <div class="rate-selector" style="margin-bottom: 0;">
+                        <button class="mode-chip active" data-mode="base">Base</button>
+                        <button class="mode-chip" data-mode="total">Total</button>
+                        <button class="mode-chip" data-mode="iva">IVA</button>
+                    </div>
                 </div>
 
                 <div class="rate-selector">

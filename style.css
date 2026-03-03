@@ -268,79 +268,10 @@ header p {
 }
 
 .mode-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
     margin-bottom: 24px;
     background: var(--results-bg);
-    padding: 8px;
-    border-radius: 50px;
-}
-
-.mode-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    transition: color 0.3s ease;
-    width: 140px;
-    text-align: center;
-}
-
-.mode-label.active {
-    color: var(--primary-color);
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 44px;
-    height: 22px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--border-color);
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-input:checked+.slider {
-    background-color: var(--primary-color);
-}
-
-input:checked+.slider:before {
-    transform: translateX(22px);
-}
-
-.slider.round {
-    border-radius: 22px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
+    padding: 16px;
+    border-radius: 16px;
 }
 
 .rate-selector {
@@ -350,7 +281,8 @@ input:checked+.slider:before {
     align-items: center;
 }
 
-.rate-chip {
+.rate-chip,
+.mode-chip {
     flex: 1;
     background: var(--input-bg);
     border: 1px solid var(--border-color);
@@ -363,7 +295,8 @@ input:checked+.slider:before {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.rate-chip.active {
+.rate-chip.active,
+.mode-chip.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
@@ -371,11 +304,14 @@ input:checked+.slider:before {
     transform: scale(1.05);
 }
 
-.rate-chip:hover:not(.active) {
+.rate-chip:hover:not(.active),
+.mode-chip:hover:not(.active) {
     border-color: var(--primary-color);
     color: var(--primary-color);
     transform: translateY(-1px);
 }
+
+
 
 .rate-indicator {
     font-size: 11px;
@@ -1090,6 +1026,14 @@ footer p {
 
 .toast.toast-success svg {
     color: #10b981;
+}
+
+.toast.toast-error {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.toast.toast-error svg {
+    color: #ef4444;
 }
 
 .toast.toast-exit {
