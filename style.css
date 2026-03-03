@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #007aff;
-    /* Apple Blue */
-    --primary-hover: #005bb5;
-    --primary-glow: rgba(0, 122, 255, 0.4);
+    --primary-color: #4f46e5;
+    /* Indigo Default */
+    --primary-hover: #4338ca;
+    --primary-glow: rgba(79, 70, 229, 0.4);
 
     /* Advanced iOS Glass Background */
     --bg-gradient: radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 40%),
@@ -31,52 +31,52 @@
 
 /* Theme Variations (Adapted to Glassmorphism) */
 body.theme-emerald {
-    --primary-color: #34c759;
-    /* Apple Green */
-    --primary-hover: #248a3d;
-    --primary-glow: rgba(52, 199, 89, 0.4);
-    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(52, 199, 89, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(52, 199, 89, 0.1), transparent 40%),
+    --primary-color: #10b981;
+    /* Original Green */
+    --primary-hover: #059669;
+    --primary-glow: rgba(16, 185, 129, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.1), transparent 40%),
         linear-gradient(135deg, #f0f8f3 0%, #e1ede5 100%);
 }
 
 body.theme-ruby {
-    --primary-color: #ff3b30;
-    /* Apple Red */
-    --primary-hover: #c92a22;
-    --primary-glow: rgba(255, 59, 48, 0.4);
-    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 59, 48, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(255, 59, 48, 0.1), transparent 40%),
+    --primary-color: #e11d48;
+    /* Original Red */
+    --primary-hover: #be123c;
+    --primary-glow: rgba(225, 29, 72, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(225, 29, 72, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(225, 29, 72, 0.1), transparent 40%),
         linear-gradient(135deg, #fcf0f0 0%, #f7e1e1 100%);
 }
 
 body.theme-amber {
-    --primary-color: #ff9500;
-    /* Apple Orange */
-    --primary-hover: #cc7700;
-    --primary-glow: rgba(255, 149, 0, 0.4);
-    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 149, 0, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(255, 149, 0, 0.1), transparent 40%),
+    --primary-color: #f59e0b;
+    /* Original Orange */
+    --primary-hover: #d97706;
+    --primary-glow: rgba(245, 158, 11, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(245, 158, 11, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.1), transparent 40%),
         linear-gradient(135deg, #fdf6eb 0%, #f5ecd6 100%);
 }
 
 body.theme-violet {
-    --primary-color: #af52de;
-    /* Apple Purple */
-    --primary-hover: #8f38ba;
-    --primary-glow: rgba(175, 82, 222, 0.4);
-    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(175, 82, 222, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(175, 82, 222, 0.1), transparent 40%),
+    --primary-color: #7c3aed;
+    /* Original Purple */
+    --primary-hover: #6d28d9;
+    --primary-glow: rgba(124, 58, 237, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.1), transparent 40%),
         linear-gradient(135deg, #f8f2fd 0%, #ede3f5 100%);
 }
 
 body.theme-pink {
-    --primary-color: #ff2d55;
-    /* Apple Pink */
-    --primary-hover: #cc1b3e;
-    --primary-glow: rgba(255, 45, 85, 0.4);
-    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 45, 85, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(255, 45, 85, 0.1), transparent 40%),
+    --primary-color: rgb(232, 160, 191);
+    /* Original Pink */
+    --primary-hover: rgb(212, 140, 171);
+    --primary-glow: rgba(232, 160, 191, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(232, 160, 191, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(232, 160, 191, 0.1), transparent 40%),
         linear-gradient(135deg, #fdf0f4 0%, #f5e1e7 100%);
 }
 
