@@ -360,19 +360,21 @@ input:checked+.slider:before {
     font-weight: 600;
     color: var(--text-muted);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .rate-chip.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 4px 12px var(--primary-glow);
+    transform: scale(1.05);
 }
 
 .rate-chip:hover:not(.active) {
     border-color: var(--primary-color);
     color: var(--primary-color);
+    transform: translateY(-1px);
 }
 
 .rate-indicator {
@@ -429,7 +431,14 @@ input[type="text"]:focus {
 
 /* Expert Mode & Retenciones */
 .hidden {
-    display: none !important;
+    opacity: 0 !important;
+    max-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    border-color: transparent !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
 }
 
 .expert-mode-toggle {
@@ -452,7 +461,15 @@ input[type="text"]:focus {
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    animation: fadeIn 0.4s ease-out;
+    max-height: 500px;
+    /* high enough to contain content */
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease-in-out,
+        padding 0.3s ease,
+        margin 0.3s ease,
+        border-color 0.3s ease;
 }
 
 .retention-group {
@@ -589,6 +606,26 @@ input:checked+.slider-mini:before {
 .result-item .value {
     font-size: 16px;
     font-weight: 600;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popValue {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+        color: var(--primary-color);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.value-update {
+    animation: popValue 0.4s ease-out;
 }
 
 hr {
@@ -634,7 +671,19 @@ hr {
 
 .primary-btn:hover {
     background: var(--primary-hover);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px var(--primary-glow);
+}
+
+.primary-btn:active,
+.primary-btn.copied {
+    transform: translateY(0) scale(0.95);
+}
+
+.primary-btn.copied {
+    background: #10b981;
+    /* Success green */
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
 }
 
 .secondary-btn {
@@ -651,7 +700,17 @@ hr {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.secondary-btn:hover {
+    background: rgba(79, 70, 229, 0.05);
+    /* very light primary hover */
+    transform: translateY(-2px);
+}
+
+.secondary-btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* History Styles */
@@ -690,6 +749,19 @@ hr {
     border: 1px solid var(--border-color);
     font-size: 13px;
     transition: transform 0.2s ease;
+    animation: slideInDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 body.dark .history-item {
@@ -697,7 +769,8 @@ body.dark .history-item {
 }
 
 .history-item:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .history-item .hist-info {

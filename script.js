@@ -158,6 +158,20 @@ document.addEventListener('DOMContentLoaded', () => {
         baseValue.textContent = formatCurrency(base);
         ivaValue.textContent = formatCurrency(iva);
         totalValue.textContent = formatCurrency(finalTotal);
+
+        // Trigger CSS animation for value updates
+        const resultValues = [baseValue, ivaValue, totalValue];
+        if (expertToggle.checked) {
+            resultValues.push(retentionValue, reteicaValue);
+            if (totalBrutoValue) resultValues.push(totalBrutoValue);
+        }
+
+        resultValues.forEach(el => {
+            el.classList.remove('value-update');
+            // Trigger reflow to restart animation
+            void el.offsetWidth;
+            el.classList.add('value-update');
+        });
         // Auto-save logic
         clearTimeout(autoSaveTimer);
         if (inputValue > 0) {
