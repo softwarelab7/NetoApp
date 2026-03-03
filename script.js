@@ -216,7 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         const history = getHistory();
         if (history.length === 0) {
-            historyList.innerHTML = '<p class="empty-msg">No hay cálculos guardados.</p>';
+            historyList.innerHTML = `
+                <div class="empty-msg" style="display:flex; flex-direction:column; align-items:center; gap:8px; opacity:0.6;">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <p style="margin:0;">No hay cálculos guardados</p>
+                    <small style="font-size:11px;">Tus cálculos recientes aparecerán aquí</small>
+                </div>
+            `;
             return;
         }
         historyList.innerHTML = '';
@@ -269,17 +281,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         textToCopy += `-----------------------------------`;
         navigator.clipboard.writeText(textToCopy).then(() => {
-            const originalText = copyBtn.innerHTML;
+            showToast('¡Resultados copiados al portapapeles!', 'success');
             copyBtn.classList.add('copied');
-            const copySpan = copyBtn.querySelector('span');
-            if (copySpan)
-                copySpan.textContent = '¡Copiado!';
             setTimeout(() => {
                 copyBtn.classList.remove('copied');
-                copyBtn.innerHTML = originalText;
             }, 2000);
         });
     });
+
+    // Toast Notification System
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+
+        // Add icon based on type
+        let iconHtml = '';
+        if (type === 'success') {
+            iconHtml = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        } else {
+            iconHtml = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`;
+        }
+
+        toast.innerHTML = `${iconHtml}<span>${message}</span>`;
+        container.appendChild(toast);
+
+        // Remove toast after 3 seconds
+        setTimeout(() => {
+            toast.classList.add('toast-exit');
+            setTimeout(() => {
+                if (container.contains(toast)) {
+                    container.removeChild(toast);
+                }
+            }, 300); // Wait for exit animation
+        }, 3000);
+    }
     const themeToggle = document.getElementById('theme-toggle');
     // Theme initialization
     const currentTheme = localStorage.getItem('theme');
