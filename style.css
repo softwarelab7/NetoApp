@@ -35,6 +35,9 @@ body.theme-emerald {
     /* Apple Green */
     --primary-hover: #248a3d;
     --primary-glow: rgba(52, 199, 89, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(52, 199, 89, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(52, 199, 89, 0.1), transparent 40%),
+        linear-gradient(135deg, #f0f8f3 0%, #e1ede5 100%);
 }
 
 body.theme-ruby {
@@ -42,6 +45,9 @@ body.theme-ruby {
     /* Apple Red */
     --primary-hover: #c92a22;
     --primary-glow: rgba(255, 59, 48, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 59, 48, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(255, 59, 48, 0.1), transparent 40%),
+        linear-gradient(135deg, #fcf0f0 0%, #f7e1e1 100%);
 }
 
 body.theme-amber {
@@ -49,6 +55,9 @@ body.theme-amber {
     /* Apple Orange */
     --primary-hover: #cc7700;
     --primary-glow: rgba(255, 149, 0, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 149, 0, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(255, 149, 0, 0.1), transparent 40%),
+        linear-gradient(135deg, #fdf6eb 0%, #f5ecd6 100%);
 }
 
 body.theme-violet {
@@ -56,6 +65,9 @@ body.theme-violet {
     /* Apple Purple */
     --primary-hover: #8f38ba;
     --primary-glow: rgba(175, 82, 222, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(175, 82, 222, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(175, 82, 222, 0.1), transparent 40%),
+        linear-gradient(135deg, #f8f2fd 0%, #ede3f5 100%);
 }
 
 body.theme-pink {
@@ -63,6 +75,9 @@ body.theme-pink {
     /* Apple Pink */
     --primary-hover: #cc1b3e;
     --primary-glow: rgba(255, 45, 85, 0.4);
+    --bg-gradient: radial-gradient(circle at 15% 50%, rgba(255, 45, 85, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(255, 45, 85, 0.1), transparent 40%),
+        linear-gradient(135deg, #fdf0f4 0%, #f5e1e7 100%);
 }
 
 body.dark {
