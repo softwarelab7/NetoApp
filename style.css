@@ -145,7 +145,8 @@ body.dark .top-banner {
     width: 100%;
     max-width: 600px;
     padding: 24px;
-    margin: 40px auto;
+    margin: 10px auto 40px;
+    /* Reduced top margin from 40px to 10px */
 }
 
 .card {
@@ -807,13 +808,13 @@ footer p {
 /* Desktop Dashboard Layout */
 @media (min-width: 1024px) {
     .container {
-        max-width: 1100px;
+        max-width: 1500px;
         display: grid;
-        grid-template-columns: 1fr 340px;
-        gap: 32px;
+        grid-template-columns: minmax(600px, 1fr) 400px;
+        gap: 40px;
         align-items: start;
-        margin: 24px auto;
-        padding: 0 40px 40px;
+        margin: 40px auto;
+        padding: 0 60px 40px;
     }
 
     .card {
