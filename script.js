@@ -402,23 +402,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Color Theme Logic
     const themeMenuBtn = document.getElementById('theme-menu-btn');
-    const themeDropdown = document.getElementById('theme-dropdown');
+    const themeStrip = document.getElementById('theme-strip');
     const themeSwatches = document.querySelectorAll('.theme-swatch');
-    // Toggle dropdown
+
+    // Toggle inline strip
     themeMenuBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        themeDropdown.classList.toggle('show');
+        themeStrip.classList.toggle('open');
+        themeMenuBtn.classList.toggle('active');
     });
     // Close on click outside
     document.addEventListener('click', () => {
-        themeDropdown.classList.remove('show');
+        themeStrip.classList.remove('open');
+        themeMenuBtn.classList.remove('active');
     });
     // Handle theme change
     themeSwatches.forEach(swatch => {
-        swatch.addEventListener('click', () => {
+        swatch.addEventListener('click', (e) => {
+            e.stopPropagation();
             const theme = swatch.dataset.theme || 'default';
             applyTheme(theme);
-            themeDropdown.classList.remove('show');
+            themeStrip.classList.remove('open');
+            themeMenuBtn.classList.remove('active');
         });
     });
     function applyTheme(theme) {
