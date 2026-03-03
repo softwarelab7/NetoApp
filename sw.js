@@ -1,4 +1,4 @@
-const CACHE_NAME = 'netoapp-v9';
+const CACHE_NAME = 'netoapp-v10';
 const ASSETS = [
     './',
     './index.html',
