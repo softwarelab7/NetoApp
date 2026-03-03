@@ -834,6 +834,42 @@ footer p {
 
 /* Responsiveness */
 @media (max-width: 600px) {
+
+    /* Theme strip becomes a second row below the banner on mobile */
+    .banner-content {
+        flex-wrap: wrap;
+    }
+
+    .brand-group {
+        flex: 1;
+        /* pushes actions to the right on first row */
+    }
+
+    .theme-strip {
+        order: 3;
+        /* always last */
+        flex-basis: 100%;
+        /* takes full width → second row */
+        max-width: none !important;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        display: block;
+        overflow: hidden;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+    }
+
+    .theme-strip-inner {
+        padding: 28px 20px 16px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .theme-strip.open {
+        max-height: 110px;
+        opacity: 1;
+    }
+
     .container {
         padding: 12px;
     }
@@ -909,29 +945,29 @@ footer p {
     }
 }
 
-/* Theme Strip — inline inside the banner */
+/* Theme Strip — inline SAME LINE as banner content */
 .theme-strip {
-    max-height: 0;
+    display: flex;
+    align-items: center;
     overflow: hidden;
-    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.25s ease;
+    max-width: 0;
     opacity: 0;
-    border-top: 0px solid rgba(255, 255, 255, 0);
+    transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s ease;
 }
 
 .theme-strip.open {
-    max-height: 60px;
+    max-width: 280px;
     opacity: 1;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .theme-strip-inner {
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 10px 32px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 12px 0 0;
+    white-space: nowrap;
 }
 
 .theme-strip-label {
@@ -940,13 +976,12 @@ footer p {
     text-transform: uppercase;
     letter-spacing: 0.6px;
     color: var(--text-muted);
-    margin-right: 4px;
+    white-space: nowrap;
 }
 
-/* Highlight the active theme button slightly */
+/* Highlight the active theme button */
 #theme-menu-btn.active {
     color: var(--primary-color);
-    background: rgba(var(--primary-color), 0.08);
 }
 
 .theme-swatch {
